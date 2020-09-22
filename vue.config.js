@@ -12,18 +12,18 @@ module.exports = {
   chainWebpack: (config) => {
   },
   configureWebpack: (config) => {
-    // config.resolve = { // 配置解析别名
-    //   extensions: ['.js', '.json', '.vue'],
-    //   alias: {
-    //     '@': path.resolve(__dirname, './src'),
-    //     'public': path.resolve(__dirname, './public'),
-    //     'components': path.resolve(__dirname, './src/components'),
-    //     'common': path.resolve(__dirname, './src/common'),
-    //     'api': path.resolve(__dirname, './src/api'),
-    //     'views': path.resolve(__dirname, './src/views'),
-    //     'data': path.resolve(__dirname, './src/data')
-    //   }
-    // }
+    config.resolve = { // 配置解析别名
+      extensions: ['.js', '.json', '.vue'],
+      alias: {
+        '@': path.resolve(__dirname, './src'),
+        '@c': path.resolve(__dirname, './src/components'),
+        'views': path.resolve(__dirname, './src/views'),
+        'network': path.resolve(__dirname, './src/network'),
+        // 'common': path.resolve(__dirname, './src/common'),
+        // 'api': path.resolve(__dirname, './src/api'),
+        // 'data': path.resolve(__dirname, './src/data')
+      }
+    }
   },
   // 生产环境是否生成 sourceMap 文件
   productionSourceMap: false,
@@ -52,13 +52,21 @@ module.exports = {
   pwa: {},
   // webpack-dev-server 相关配置
   devServer: {
-    open: false, // 编译完成是否打开网页
+    open: true, // 编译完成是否打开网页
     host: '0.0.0.0', // 指定使用地址，默认localhost,0.0.0.0代表可以被外界访问
     port: 8080, // 访问端口
     https: false, // 编译失败时刷新页面
     hot: true, // 开启热加载
     hotOnly: false,
-    proxy: null, // 设置代理
+    proxy:{
+      "/devApi": { //这个路径会替换下面的target路径
+          target: "http://www.web-jshtml.cn/productapi/token", //API服务器的地址
+          changeOrigin: true,
+          pathRewrite: {
+              "^/devApi": ''
+          }
+      }
+    }, // 设置代理
     overlay: { // 全屏模式下是否显示脚本错误
       warnings: true,
       errors: true
