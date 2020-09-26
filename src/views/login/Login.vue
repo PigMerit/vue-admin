@@ -189,24 +189,33 @@ export default {
     });
 
     //发送登录请求
-    const login = (() => {
-        let repuestData = {
+    const login = (()=>{
+      let repuestData = {
           username: ruleForm.username,
           password: sha1(ruleForm.password),
           code: ruleForm.code
         }
-        Login(repuestData).then(data=>{
-          console.log(data)
-        }).catch(error=>{
-          console.log(error)
-        })
-        // root.$store.dispatch('app/login', repuestData).then(response => {
-        //   // 页面跳转
-        //   root.$router.push({
-        //     name: 'Console'
-        //   })
-        // }).catch(error => {});
-      })
+        root.$store.dispatch('app/login', repuestData).then(response => {
+          // 页面跳转
+          root.$router.push({
+            name: 'console'
+          })
+        }).catch(error => {});
+    })
+
+
+    // const login = (() => {
+    //     let repuestData = {
+    //       username: ruleForm.username,
+    //       password: sha1(ruleForm.password),
+    //       code: ruleForm.code
+    //     }
+    //     Login(repuestData).then(data=>{
+    //       root.$router.push('/console')
+    //     }).catch(error=>{
+    //       console.log(error)
+    //     })
+    //   })
 
     //发送注册请求
     const register = (()=>{

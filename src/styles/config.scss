@@ -1,0 +1,15 @@
+
+//一些主题颜色
+//纯白
+$white:#ffffff;
+//导航条颜色
+$navBgc:#344a5f;
+
+//兼容浏览器的函数
+@mixin webkit($type,$value) {
+    _webkit-#{$type}:$value;
+    _moz-#{$type}:$value;
+    _o-#{$type}:$value;
+    _ms-#{$type}:$value;
+    #{$type}:$value;
+}
