@@ -17,7 +17,7 @@ const routes = [
     meta:{
       describe:'登录页'
     },
-    component: () => import("views/Login/Login.vue")
+    component: () => import("views/login/Login.vue")
   },
   {
     path: "/console", 

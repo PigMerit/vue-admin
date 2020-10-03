@@ -6,10 +6,24 @@ $white:#ffffff;
 $navBgc:#344a5f;
 
 //兼容浏览器的函数
-@mixin webkit($type,$value) {
-    _webkit-#{$type}:$value;
+@mixin webkit($type,$value) {   
     _moz-#{$type}:$value;
     _o-#{$type}:$value;
     _ms-#{$type}:$value;
     #{$type}:$value;
 }
+
+//设置信息管理首页顶部的信息框
+@mixin labelDom($align, $width, $line-height: "normal"){
+    label {
+      float: left;
+      width: $width + px;
+      text-align: $align;
+      line-height: $line-height + px;
+    }
+    .warp-content {
+        margin-left: $width + px;
+    }
+  }
+
+ 

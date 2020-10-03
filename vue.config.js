@@ -19,6 +19,16 @@ module.exports = {
       symbolId: "icon-[name]",
       include: ["./src/icons"] 
     });
+    
+    config.module
+        .rule("vue")
+        .use("vue-loader")
+        .loader("vue-loader")
+        .tap(options => {
+          options.compilerOptions.whitespace = 'preserve';
+          return options;
+        })
+        .end();
   },
   configureWebpack: (config) => {
     config.resolve = { // 配置解析别名

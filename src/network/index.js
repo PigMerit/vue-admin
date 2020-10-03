@@ -1,5 +1,5 @@
 import axios from 'axios'
-
+import { getToKen, getUserName } from "@/utils/token.js";
 //创建一个实例
 const service = axios.create({
     baseURL:"/devApi",
@@ -8,6 +8,8 @@ const service = axios.create({
 
 //请求拦截器
 service.interceptors.request.use(function (config) {
+    config.headers['Tokey'] = getToKen()
+    config.headers['UserName'] = getUserName()
     return config
 })
 
