@@ -17,11 +17,13 @@
             <svg-icon :iconClass="router.meta.icon" :className="router.meta.icon" />
             <span slot="title">{{router.meta.describe}}</span>
           </template>
-          <el-menu-item
-            v-for="childRouter in router.children"
+          <template v-for="childRouter in router.children">
+            <el-menu-item
+            v-if='!childRouter.hidden'
             :index="childRouter.path"
             :key="childRouter.name"
           >{{childRouter.meta.describe}}</el-menu-item>
+          </template>
         </el-submenu>
       </template>
     </el-menu>

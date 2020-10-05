@@ -99,11 +99,13 @@
         prop="categoryId"
         label="类型"
         width="130"
+        :formatter="toCategory"
       ></el-table-column>
       <el-table-column
         prop="createDate"
         label="日期"
         width="237"
+        :formatter="toData"
       ></el-table-column>
       <el-table-column prop="user" label="管理员" width="115"></el-table-column>
       <el-table-column label="操作">
@@ -113,6 +115,9 @@
           >
           <el-button type="success" size="mini" @click="editInfo(scope.row.id)"
             >编辑</el-button
+          >
+          <el-button type="success" size="mini" @click="editDetail(scope.row)"
+            >编辑详情</el-button
           >
         </template>
       </el-table-column>
@@ -161,6 +166,7 @@ import { global } from "@/utils/global_V3.0";
 import DialogInfo from "@c/dialog/info.vue";
 import DialogEditInfo from "@c/dialog/edit.vue";
 import { GetList, GetCategory, DeleteInfo } from "@/network/api/news.js";
+import { timestampToTime } from "@/utils/common";
 export default {
   name: "info",
   components: { DialogInfo, DialogEditInfo },
@@ -283,6 +289,37 @@ export default {
       });
     };
 
+    const editDetail = row => {
+      root.$store.commit("infoDetailed/UPDATE_STATE_VALUE", {
+        id: {
+          value: row.id,
+          sessionKey: "infoId",
+          session: true
+        }
+      });
+      root.$router.push({
+                name: "InfoDetailed",
+                params: {
+                    id:row.id
+                }
+            })
+    };
+
+    const toData = (row, column, cellValue, index) => {
+      return timestampToTime(row.createDate);
+    };
+    const toCategory = row => {
+      // 调用一个函数，返回一个新的值，替换原始值
+      let categoryId = row.categoryId;
+      let categoryData = options.category.filter(
+        item => item.id == categoryId
+      )[0];
+      if (!categoryData) {
+        return false;
+      }
+      return categoryData.category_name;
+    };
+
     onBeforeMount(() => {
       getList();
       getCategory();
@@ -307,7 +344,10 @@ export default {
       editInfo,
       deleteItem,
       page,
-      deleteInfoId
+      deleteInfoId,
+      editDetail,
+      toData,
+      toCategory
     };
   }
 };
