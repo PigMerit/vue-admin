@@ -30,7 +30,8 @@ import {
   ref,
   watch,
   onMounted,
-  onBeforeMount
+  onBeforeMount,
+  onActivated
 } from "@vue/composition-api";
 import { GetList, GetCategory,EdidInfo } from "@/network/api/news.js";
 import { timestampToTime } from "@/utils/common";
@@ -109,6 +110,10 @@ export default {
 
     onBeforeMount(()=>{
       getCategory()
+    })
+
+    onActivated(() => {
+      data.id = root.$route.params.id || root.$store.getters["infoDetailed/infoId"];
       getInfo()
     })
 

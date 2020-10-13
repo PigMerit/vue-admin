@@ -2,9 +2,16 @@ import { Login } from "@/network/api/login.js";
 import { setToKen, getToKen, setUserName, getUserName } from "@/utils/token.js";
 
 const state = {
+    roles: [],
+    buttonPermission: [],
     isCollapse:JSON.parse(sessionStorage.getItem('isCollapse'))||false,
     token: getToKen() || '',
     username: getUserName() || ''
+}
+const getters = {
+    isCollapse: state => state.isCollapse,
+    roles: state => state.roles,
+    buttonPermission: state => state.buttonPermission
 }
 
 const mutations = {
@@ -19,6 +26,12 @@ const mutations = {
     },
     SET_USERNAME(state, value){
         state.username = value
+    },
+    SET_ROLES(state, value){
+        state.roles = value;
+    },
+    SET_BUTTON(state, value){
+        state.buttonPermission = value;
     }
 }
 
@@ -45,5 +58,6 @@ export default {
     namespaced: true,
     state,
     mutations,
+    getters,
     actions
 }

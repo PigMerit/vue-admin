@@ -110,13 +110,13 @@
       <el-table-column prop="user" label="管理员" width="115"></el-table-column>
       <el-table-column label="操作">
         <template slot-scope="scope">
-          <el-button type="danger" size="mini" @click="deleteItem(scope.row.id)"
+          <el-button type="danger" size="mini" v-btnPerm="'info:del'" class="hiden-button" @click="deleteItem(scope.row.id)"
             >删除</el-button
           >
-          <el-button type="success" size="mini" @click="editInfo(scope.row.id)"
+          <el-button type="success" size="mini" v-btnPerm="'info:edit'" class="hiden-button" @click="editInfo(scope.row.id)"
             >编辑</el-button
           >
-          <el-button type="success" size="mini" @click="editDetail(scope.row)"
+          <el-button type="success" size="mini" v-btnPerm="'info:detailed'" class="hiden-button" @click="editDetail(scope.row)"
             >编辑详情</el-button
           >
         </template>
@@ -376,4 +376,8 @@ export default {
     text-align: center;
   }
 }
+
+button.hiden-button { display: none; }
+button.show-button { display: inline-block; }
+
 </style>

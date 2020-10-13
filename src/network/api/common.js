@@ -47,3 +47,19 @@ export function common(){
            data
        })
    }
+
+   export function loadTableData(params){
+    return service.request({
+        method: params.method || "post",
+        url: params.url,
+        data: params.data || {}
+    })
+}
+
+export function GetCityPicker(data){
+    return service.request({
+        method: "post",
+        url: "/cityPicker/",
+        data
+    })
+}
